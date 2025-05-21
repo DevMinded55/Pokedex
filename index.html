@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>Pokédex</title>
+        <link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="styles/colors.css" />
+        <link rel="stylesheet" href="styles/standard.css" />
+        <link rel="stylesheet" href="styles/overlay.css" />
+        <link
+            rel="shortcut icon"
+            href="assets/icons/pokemon-4657023_640.png"
+            type="image/png"
+        />
+    </head>
+    <body onload="getPokemonList()">
+        <header>
+            <img
+                id="poke-logo"
+                src="assets/icons/pokemon-4657023_640.png"
+                alt=""
+            />
+            <h1>Pokédex</h1>
+        </header>
+
+        <main>
+            <div class="search-bar">
+                <input type="text" id="search" placeholder="Name eingeben..." />
+                <button id="searchBtn" onclick="searchPokemon()">Search</button>
+            </div>
+
+            <div id="pokedex" class="pokedex-grid"></div>
+            <div>
+                <button id="loadMoreBtn" onclick="loadMore()">Load More</button>
+            </div>
+        </main>
+
+        <div id="overlay" class="overlay hidden" onclick="closeOverlay(event)">
+            <div class="overlay-content" onclick="event.stopPropagation()">
+                <button class="close-btn" onclick="hideOverlay()">✖</button>
+                <div id="overlayDetails"></div>
+                <div class="overlay-nav">
+                    <button onclick="prevPokemon()">⬅</button>
+                    <button onclick="nextPokemon()">➡</button>
+                </div>
+            </div>
+        </div>
+        <script src="script.js"></script>
+        <script src="scripts/template.js"></script>
+        <script src="db.js"></script>
+    </body>
+</html>

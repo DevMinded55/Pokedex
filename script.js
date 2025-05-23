@@ -6,12 +6,15 @@ let allPokemonData = [];
 const loadedPokemon = [];
 
 async function getPokemonList() {
+    showLoading();
     try {
         const pokemonArray = await fetchPokemonArray(limit, offset);
         await renderPokemonList(pokemonArray);
         offset += limit;
     } catch (error) {
         console.log("Fehler beim Laden der Liste:", error);
+    } finally {
+        hideLoading();
     }
 }
 
@@ -51,22 +54,26 @@ function loadMore() {
     getPokemonList();
 }
 
-async function searchPokemon() {
-    const input = getInputValue("search");
-    if (!isValidInput(input)) {
-        showSearchError("Bitte mindestens 3 Buchstaben eingeben.");
-        return;
-    }
-    try {
-        const filtered = await getFilteredPokemon(input);
-        if (filtered.length === 0) {
-            showNoResults();
-            return;
+function searchPokemon() {
+    const searchInput = document
+        .getElementById("search")
+        .value.toLowerCase()
+        .trim();
+    const cards = document.querySelectorAll(".pokemon-card");
+
+    cards.forEach((card) => {
+        const name = card.querySelector("h3").textContent.toLowerCase();
+        const id = card
+            .querySelector("small")
+            .textContent.replace("#", "")
+            .toLowerCase();
+
+        if (name.includes(searchInput) || id === searchInput) {
+            card.style.display = "block";
+        } else {
+            card.style.display = "none";
         }
-        await renderSearchResults(filtered);
-    } catch (error) {
-        showSearchError("Es wurden keine Pokémon gefunden.");
-    }
+    });
 }
 
 function getInputValue(id) {
@@ -144,4 +151,12 @@ function prevPokemon() {
     let i = currentOverlayIndex - 1;
     if (i < 0) i = allPokemonData.length - 1;
     showOverlayByIndex(i);
+}
+
+function showLoading() {
+    document.getElementById("loadingOverlay").classList.remove("hidden");
+}
+
+function hideLoading() {
+    document.getElementById("loadingOverlay").classList.add("hidden");
 }

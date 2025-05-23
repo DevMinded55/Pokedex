@@ -6,8 +6,8 @@
         <title>Pokédex</title>
         <link rel="stylesheet" href="style.css" />
         <link rel="stylesheet" href="styles/colors.css" />
-        <link rel="stylesheet" href="styles/standard.css" />
         <link rel="stylesheet" href="styles/overlay.css" />
+        <link rel="stylesheet" href="styles/pokeball.css" />
         <link
             rel="shortcut icon"
             href="assets/icons/pokemon-4657023_640.png"
@@ -25,6 +25,14 @@
         </header>
 
         <main>
+            <div id="loadingOverlay" class="loading hidden">
+                <img
+                    id="loading-pokeball"
+                    class="spinner"
+                    src="assets/icons/pokemon-4657023_640.png"
+                    alt="Lade Pokéball"
+                />
+            </div>
             <div class="search-bar">
                 <input type="text" id="search" placeholder="Name eingeben..." />
                 <button id="searchBtn" onclick="searchPokemon()">Search</button>
@@ -48,6 +56,5 @@
         </div>
         <script src="script.js"></script>
         <script src="scripts/template.js"></script>
-        <script src="db.js"></script>
     </body>
 </html>
